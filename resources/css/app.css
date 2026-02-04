@@ -1,0 +1,11 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'mdb-ui-kit/css/mdb.min.css';
+@import '@fortawesome/fontawesome-free/css/all.min.css'; /* This will now work */
+
+.gradient-custom {
+/* fallback for old browsers */
+background: #e9efff;
+}
+
+
+
