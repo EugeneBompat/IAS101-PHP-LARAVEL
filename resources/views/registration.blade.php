@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/password-meter.js'])
 </head>
 <body>
     <h1>Sign Up</h1>
@@ -41,6 +42,12 @@
             <label for="password">Password:</label><br>
             <input type="password" name="password" id="password" placeholder="Password" required><br>
             <small>Password must be at least 8 characters and contain uppercase, lowercase, number, and special character.</small><br>
+            
+            <div id="password-meter-container" style="display: none; margin-top: 5px; margin-bottom: 10px;">
+                <meter max="4" id="password-meter" style="width: 200px;"></meter>
+                <div id="password-text" style="font-size: 12px; font-weight: bold;"></div>
+            </div>
+            
             @error('password')
                 <span style="color: red;">{{ $message }}</span><br>
             @enderror
@@ -56,5 +63,6 @@
         <br>
         <input type="submit" name="signup" value="Sign Up">
     </form>
+
 </body>
 </html>
