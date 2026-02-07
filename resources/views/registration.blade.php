@@ -3,16 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign Up</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <h1>Sign Up</h1>
+    
+    @if ($errors->any())
+        <div style="color: red; margin-bottom: 15px;">
+            <ul style="list-style: none; padding: 0;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{route('registercheck')}}" method="post">
         @csrf
-        <input type="text" name="name" placeholder="Name"><br>
-        <input type="email" name="email" placeholder="Email"><br>
-        <input type="password" name="password" placeholder="Password"><br>
+        <div>
+            <label for="name">Name:</label><br>
+            <input type="text" name="name" id="name" placeholder="Name" value="{{ old('name') }}" required><br>
+            @error('name')
+                <span style="color: red;">{{ $message }}</span><br>
+            @enderror
+        </div>
+        <br>
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="email" name="email" id="email" placeholder="Email" value="{{ old('email') }}" required><br>
+            @error('email')
+                <span style="color: red;">{{ $message }}</span><br>
+            @enderror
+        </div>
+        <br>
+        <div>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" id="password" placeholder="Password" required><br>
+            <small>Password must be at least 8 characters and contain uppercase, lowercase, number, and special character.</small><br>
+            @error('password')
+                <span style="color: red;">{{ $message }}</span><br>
+            @enderror
+        </div>
+        <br>
+        <div>
+            <label for="password_confirmation">Confirm Password:</label><br>
+            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" required><br>
+            @error('password_confirmation')
+                <span style="color: red;">{{ $message }}</span><br>
+            @enderror
+        </div>
+        <br>
         <input type="submit" name="signup" value="Sign Up">
     </form>
 </body>

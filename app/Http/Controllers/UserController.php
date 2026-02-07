@@ -5,40 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+
 class UserController extends Controller
-    {
-        public function login(){
+{
+    public function login(){
         return view('login');
-        }
+    }
 
-        public function signup(){
+    public function signup(){
         return view('registration');
+    }
+
+    public function logincheck(LoginRequest $request){
+        // Validation is handled by LoginRequest
+        $credential = $request->only('email', 'password');
+
+        if(Auth::attempt($credential)){
+            $request->session()->regenerate();
+            return redirect()->route('dashboard');
         }
 
-        public function logincheck(Request $request){
-            $credential = $request->validate([
-                'email'=>'required|email',
-                'password'=>'required',
-            ]);
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
 
-            if(Auth::attempt($credential)){
-                return redirect()->route('dashboard');
-            }
-        }
+    public function registercheck(RegisterRequest $request){
+        // Validation is handled by RegisterRequest
+        // Laravel's Eloquent automatically hashes passwords when using the 'hashed' cast
+        $user = User::create([
+            'name' => $request->validated()['name'],
+            'email' => $request->validated()['email'],
+            'password' => $request->validated()['password'], // Will be automatically hashed by the model
+        ]);
+        
+        Auth::login($user);
 
-        public function registercheck(Request $request){
-            $validation = $request->validate([
-                'name'=>'required',
-                'email'=>'required|email',
-                'password'=>'required',
-            ]);
-            $user = USER::Create($validation);
-            Auth::login($user);
-
-            return redirect()->route('login');
-
-
-
+        return redirect()->route('dashboard');
     }
 
     public function goDashboard(){
