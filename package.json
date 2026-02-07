@@ -17,6 +17,7 @@
         "@fortawesome/fontawesome-free": "^7.1.0",
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.8",
-        "mdb-ui-kit": "^9.3.0"
+        "mdb-ui-kit": "^9.3.0",
+        "zxcvbn": "^4.4.2"
     }
 }
