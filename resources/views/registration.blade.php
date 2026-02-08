@@ -8,17 +8,6 @@
 </head>
 <body>
     <h1>Sign Up</h1>
-    
-    @if ($errors->any())
-        <div style="color: red; margin-bottom: 15px;">
-            <ul style="list-style: none; padding: 0;">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <form action="{{route('registercheck')}}" method="post">
         @csrf
         <div>
@@ -32,16 +21,22 @@
         <div>
             <label for="email">Email:</label><br>
             <input type="email" name="email" id="email" placeholder="Email" value="{{ old('email') }}" required><br>
-            @error('email')
+        </div>
+        @error('email')
                 <span style="color: red;">{{ $message }}</span><br>
             @enderror
-        </div>
         <br>
         <div>
             <label for="password">Password:</label><br>
-            <input type="password" name="password" id="password" placeholder="Password" required><br>
-            <small>Password must be at least 8 characters and contain uppercase, lowercase, number, and special character.</small><br>
-            
+            <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+            <h7>Password Requirements:</h7>
+            <ul>
+                <li>Contain at least 8 characters.</li>
+                <li>Contain at least 1 uppercase letter.</li>
+                <li>Contain at least 1 lowercase letter.</li>
+                <li>Contain at least 1 special character.</li>
+                <li>Contain at least 1 number.</li>
+            </ul>
             <div id="password-meter-container" style="display: none; margin-top: 5px; margin-bottom: 10px;">
                 <meter max="4" id="password-meter" style="width: 200px;"></meter>
                 <div id="password-text" style="font-size: 12px; font-weight: bold;"></div>

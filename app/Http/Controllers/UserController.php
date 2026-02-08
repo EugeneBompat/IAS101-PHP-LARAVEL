@@ -19,26 +19,24 @@ class UserController extends Controller
     }
 
     public function logincheck(LoginRequest $request){
-        // Validation is handled by LoginRequest
         $credential = $request->only('email', 'password');
-
-        if(Auth::attempt($credential)){
-            $request->session()->regenerate();
-            return redirect()->route('dashboard');
-        }
-
-        return back()->withErrors([
+        if (Auth::attempt($credential)) {
+        $request->session()->regenerate();
+        return redirect()->route('dashboard');
+        } else {
+        return back()
+        ->withErrors([
             'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        ])
+        ->withInput($request->only('email'));
     }
+}
 
     public function registercheck(RegisterRequest $request){
-        // Validation is handled by RegisterRequest
-        // Laravel's Eloquent automatically hashes passwords when using the 'hashed' cast
         $user = User::create([
             'name' => $request->validated()['name'],
             'email' => $request->validated()['email'],
-            'password' => $request->validated()['password'], // Will be automatically hashed by the model
+            'password' => $request->validated()['password'], 
         ]);
         
         Auth::login($user);
