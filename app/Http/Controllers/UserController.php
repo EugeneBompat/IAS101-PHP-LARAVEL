@@ -38,10 +38,8 @@ class UserController extends Controller
             'email' => $request->validated()['email'],
             'password' => $request->validated()['password'], 
         ]);
-        
-        Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('login');
     }
 
     public function goDashboard(){

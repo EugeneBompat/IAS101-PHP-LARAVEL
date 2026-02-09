@@ -51,7 +51,6 @@
             <div class="col-md-8 text-center">
                 <h1 class="display-4 fw-bold">Company Announcement Portal</h1>
                 <p class="lead text-secondary">
-                  
                 </p>
             </div>
         </div>
