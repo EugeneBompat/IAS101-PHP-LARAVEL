@@ -7,3 +7,7 @@ Progress:
 -Create multiple pages
 -Create Input Validation
 -Create routes to multiple pages
+-Password Hashing
+
+In progress:
+-Protected routes

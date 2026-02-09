@@ -23,26 +23,20 @@
                 <!--<h5 class="mb-0">{{ config('app.name') }}</h5>-->
                 <h5 class="mb-0">Company</h5>
             </div>
-
-            @if (Route::has('login'))
                 <nav class="nav">
-                    @auth
+                    @auth <!--Authentication if the user if logged in and it will show the dashboard button-->
                         <a href="{{ url('/dashboard') }}" class="btn btn-outline-primary btn-sm">
                             Dashboard
                         </a>
-                    @else
+                    @else<!--It will show Login or register button if the user is not logged-->
                         <a href="{{ route('login') }}" class="nav-link btn btn-secondary text-dark me-2">
                             Log in
                         </a>
-
-                        @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
                                 Register
                             </a>
-                        @endif
                     @endauth
                 </nav>
-            @endif
         </div>
     </header>
 
