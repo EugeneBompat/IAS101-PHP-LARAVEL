@@ -18,7 +18,6 @@
 
         <form action="{{ route('logincheck') }}" method="post">
             @csrf
-
             <!-- Email -->
             <div class="mb-3">
                 <label class="form-label">Email</label>

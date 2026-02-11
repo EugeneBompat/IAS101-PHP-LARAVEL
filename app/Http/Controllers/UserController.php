@@ -55,11 +55,19 @@ class UserController extends Controller
     public function goDashboard(){
           // Check if the user is logged in and is an admin
         if(Auth::check() && Auth::user()->usertype=='admin'){
-            return view('admin.dashboard'); //redirect to admin dashboard
+            //Return admin dashboard with no-cache headers
+            return response(view('admin.dashboard'))
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
         }
          // Check if the user is logged in and is a normal user
         else if(Auth::check() && Auth::user()->usertype=='user'){
-            return view('dashboard');//redirect to user dashboard
+            // Return user dashboard with no-cache headers
+            return response(view('dashboard'))
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
         }else{
             // If not logged in, redirect the user to the login page
             return redirect()->route('login');
